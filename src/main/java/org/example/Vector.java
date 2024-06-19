@@ -1,83 +1,69 @@
 package org.example;
 
-public class Vector {
-    public double xvalue;
-    public double yvalue;
+// Класс Vector для представления векторов в двумерном пространстве
+class Vector {
+    float x, y;
 
-    public Vector() {
-        this.xvalue = Math.random()-0.5;
-        this.yvalue = Math.random()-0.5;
+    Vector(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public Vector(double xvalue, double yvalue) {
-        this.xvalue = xvalue;
-        this.yvalue = yvalue;
+    // Добавление другого вектора к этому вектору
+    public void add(Vector v) {
+        x += v.x;
+        y += v.y;
     }
 
-    public void set(double xvalue, double yvalue) {
-        this.xvalue = xvalue;
-        this.yvalue = yvalue;
+    // Вычитание другого вектора из этого вектора
+    // Статический метод для вычитания одного вектора из другого
+    public static Vector sub(Vector v1, Vector v2) {
+        return new Vector(v1.x - v2.x, v1.y - v2.y);
     }
 
-    public double getXValue() { return this.xvalue; }
-    public double getYValue() { return this.yvalue; }
-
-    public void setXValue(double newValue) { this.xvalue = newValue; }
-    public void setYValue(double newValue) { this.yvalue = newValue; }
-
-    public double getMagnitude() {
-        return Math.sqrt(Math.pow(this.xvalue, 2) + Math.pow(this.yvalue, 2));
+    // Умножение вектора на скаляр
+    public void multiply(float n) {
+        x *= n;
+        y *= n;
     }
 
-    public void limit(double maxForce) {
-        double magnitude = Math.sqrt(Math.pow(this.xvalue, 2) + Math.pow(this.yvalue, 2));
-        double multiplier;
-        if(magnitude > maxForce)
-            multiplier = maxForce / magnitude;
-        else
-            multiplier = 1.0;
-
-        this.xvalue *= multiplier;
-        this.yvalue *= multiplier;
+    // Деление вектора на скаляр
+    public void divide(float n) {
+        x /= n;
+        y /= n;
     }
 
-    public Vector setMagnitude(double newMagnitude) {
-        double currentMagnitude = Math.sqrt(Math.pow(this.xvalue, 2) + Math.pow(this.yvalue, 2));
-        this.xvalue *= (newMagnitude/currentMagnitude);
-        this.yvalue *= (newMagnitude/currentMagnitude);
-        return this;
+    // Ограничение длины вектора максимальным значением
+    public void limit(float max) {
+        if (magnitude() > max) {
+            normalize();
+            multiply(max);
+        }
     }
 
-    void add(Vector parent) {
-        this.xvalue += parent.getXValue();
-        this.yvalue += parent.getYValue();
+    // Нормализация вектора до единичной длины
+    public void normalize() {
+        float m = magnitude();
+        if (m != 0) {
+            divide(m);
+        }
     }
 
-    void subtract(Vector parent) {
-        this.xvalue -= parent.getXValue();
-        this.yvalue -= parent.getYValue();
+    // Вычисление длины вектора
+    public float magnitude() {
+        return (float)Math.sqrt(x * x + y * y);
     }
 
-    void multiply(double multiplier) {
-        this.xvalue *= multiplier;
-        this.yvalue *= multiplier;
+    // Статический метод для вычисления расстояния между двумя векторами
+    public static float dist(Vector v1, Vector v2) {
+        float dx = v1.x - v2.x;
+        float dy = v1.y - v2.y;
+        return (float)Math.sqrt(dx * dx + dy * dy);
     }
 
-    void divide(double denominator) {
-        this.xvalue /= denominator;
-        this.yvalue /= denominator;
-    }
-
-    double dir() {
-        return Math.atan2(this.yvalue, this.xvalue);
-    }
-
-    void setValues(double xvalue, double yvalue) {
-        this.xvalue = xvalue;
-        this.yvalue = yvalue;
-    }
-
-    double movement() {
-        return this.xvalue+this.yvalue;
+    // Статический метод для создания случайного вектора
+    public static Vector random() {
+        return new Vector((float)Math.random() * 2 - 1, (float)Math.random() * 2 - 1);
     }
 }
+
