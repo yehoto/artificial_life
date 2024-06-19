@@ -31,7 +31,6 @@ public class BoidDriver {
         //frame.setPreferredSize(new Dimension(2000, 800));
         // Делаем окно на весь экран
 
-
         // Убираем декоративные элементы окна
         frame.setUndecorated(true);
         // Создаем кнопку закрыти

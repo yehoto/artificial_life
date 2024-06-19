@@ -8,10 +8,21 @@ import java.awt.event.*;
 
 public class BoidRunner extends JPanel implements KeyListener, MouseListener, MouseMotionListener  {
     private static final long serialVersionUID = -8716187417647724411L;
-    public static final int BOIDCOUNT = 1200; //*Adjust this value to match your computer's optimal processing
+    public static final int BOIDCOUNT = 1; //*Adjust this value to match your computer's optimal processing
 
-    public static final int WIDTH = 1920;
-    public static final int HEIGHT = 1080;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+   // int width = screenSize.width - 200; // Вычитаем ширину информационной панели
+   // int height = screenSize.height;
+   public static int WIDTH;
+    public static int HEIGHT;
+
+    static {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        WIDTH = screenSize.width - 200;
+        HEIGHT = screenSize.height;
+    }
+//    public static final int WIDTH =  screenSize.width - 200;
+//    public static final int HEIGHT = screenSize.height;
     static ArrayList<Boid> flock = new ArrayList<Boid>();
     // static int totalInfected = 1, deathCount = 0, healthyCount = 0, criticalCount = 0,
           //  aliveCount, recoveryCount = 0, visiblyDead = 0, diagnosedCount = 0, paramedicCount = 0, paranoidCount = 0;
@@ -49,11 +60,11 @@ public class BoidRunner extends JPanel implements KeyListener, MouseListener, Mo
         }
     }
 
-    boolean intensityPlayed = false, milestonePlayed = false;
+    //boolean intensityPlayed = false, milestonePlayed = false;
 
     public void run() {
         while(true) {
-            int toAdd = 0;
+           // int toAdd = 0;
           //  totalInfected = 0; healthyCount = 0; recoveryCount = 0; visiblyDead = 0; diagnosedCount = 0; paramedicCount = 0; paranoidCount = 0;
             for(int i = 0; i < flock.size(); i++){
                 flock.get(i).edges();
@@ -110,26 +121,26 @@ public class BoidRunner extends JPanel implements KeyListener, MouseListener, Mo
 //                    new Sound("paranoiaEnded.wav");
 //                }
             }
-            if(clearGrid) {
-                for(int i = 0; i < flock.size(); i++) {
-                    flock.remove(i);
-                    i--;
-                }
-                clearGrid = false;
-            }
-            if(addedBoids.size() != 0) {
-                for(int i = 0; i < addedBoids.size(); i++) {
-                    flock.add(addedBoids.get(i));
-                    addedBoids.remove(i);
-                    i--;
-                }
-            }
+//            if(clearGrid) {
+//                for(int i = 0; i < flock.size(); i++) {
+//                    flock.remove(i);
+//                    i--;
+//                }
+//                clearGrid = false;
+//            }
+//            if(addedBoids.size() != 0) {
+//                for(int i = 0; i < addedBoids.size(); i++) {
+//                    flock.add(addedBoids.get(i));
+//                    addedBoids.remove(i);
+//                    i--;
+//                }
+//            }
 //            if(paramedicCount <= 2 && diagnosedCount != 0) {
 //                flock.add(new Boid(true));
 //                new Sound("ambulance.wav");
 //            }
-            if(!intensityPlayed && (flock.size()+1)%100 == 0)
-                intensityPlayed = true;
+//            if(!intensityPlayed && (flock.size()+1)%100 == 0)
+//                intensityPlayed = true;
             //if(totalInfected == 0)
               //  flock.add(new Boid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), true));
 //            else if(totalInfected >= (int)(flock.size()*0.8) && !intensityPlayed) {
@@ -144,11 +155,11 @@ public class BoidRunner extends JPanel implements KeyListener, MouseListener, Mo
 //                    milestonePlayed = false;
 //            }
            // updateValues();
-            for(int i = 0; i < toAdd; i++)
-                flock.add(new Boid());
-            int more = (int)(Math.random()*((flock.size()>=900) ? 1000 : 500));
-            if(more == 0)
-                flock.add(new Boid());
+//            for(int i = 0; i < toAdd; i++)
+//                flock.add(new Boid());
+//            int more = (int)(Math.random()*((flock.size()>=900) ? 1000 : 500));
+//            if(more == 0)
+//                flock.add(new Boid());
 //            if(addedNewBoid) {
 //                flock.add(new Boid(mouseXPosition, mouseYPosition, false));
 //                addedNewBoid = false;
@@ -256,7 +267,7 @@ public class BoidRunner extends JPanel implements KeyListener, MouseListener, Mo
 
     public void keyReleased( KeyEvent event ) {}
 
-    static ArrayList<Boid> addedBoids = new ArrayList<>();
+    //static ArrayList<Boid> addedBoids = new ArrayList<>();
 
     public void keyPressed( KeyEvent event ) {
         //General
@@ -352,7 +363,7 @@ public class BoidRunner extends JPanel implements KeyListener, MouseListener, Mo
 //        }
 
     }
-    boolean clearGrid = false;
+   // boolean clearGrid = false;
 
 
     public void keyTyped(KeyEvent event) {}
