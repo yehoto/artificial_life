@@ -7,7 +7,7 @@ import java.util.*;
 
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
-    public static final int BOIDCOUNT = 10 ; //*Adjust this value to match your computer's optimal processing
+    public static final int BOIDCOUNT = 1045 ;
 
    public static int WIDTH;
     public static int HEIGHT;
@@ -21,10 +21,9 @@ public class BoidRunner extends JPanel  {
     static ArrayList<Boid> flock = new ArrayList<Boid>();
 
 
-
     public BoidRunner() {
         this.setLayout(null);
-        this.setBackground(Color.BLACK);
+        this.setBackground(new Color(46, 51, 48));
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setFocusable(true);
 
@@ -50,7 +49,6 @@ public class BoidRunner extends JPanel  {
 
             for(int i = 0; i < flock.size(); i++){
                 flock.get(i).edges();
-                flock.get(i).flock(flock);
                 flock.get(i).update();
             }
 
