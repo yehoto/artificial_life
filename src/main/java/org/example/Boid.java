@@ -39,6 +39,67 @@ public class Boid {
 
     }
 
+    void behaviors(ArrayList<Food> good,ArrayList<Food> bad){
+        Vector attraction = this.eat(good,food_value,1000);
+        Vector repulsion = this.eat(bad, poison_value, this.dna[3]);
+
+        // Scale the steering forces via. DNA
+        attraction.multiply(this.dna[0]);
+        repulsion.multiply(this.dna[1]);
+
+      //  this.acceleration.add(attraction);
+       // this.acceleration.add(repulsion);
+
+        if ((attraction.getMagnitude()+repulsion.getMagnitude()) != 0) {
+            this.acceleration.add(attraction);
+            this.acceleration.add(repulsion);
+        }else{
+            this.wander(); // Вызываем метод wander, если еда не найдена
+        }
+
+
+    }
+
+
+    Vector eat(ArrayList<Food> targets,int nutrition, double perception){
+        double record = Double.MAX_VALUE;
+        int closest=-1;
+
+        // цикл по всем таргетам
+        for (int i=0;i<targets.size();i++){
+            double d = this.position.dist(targets.get(i).position);
+            //момент съедания
+            if(d<maxSpeed){
+                //уничтожение еды
+                targets.remove(i);
+                this.health+=nutrition;
+
+            }
+
+            //поиск ближайшей еды которая может быть воспринята
+            else if (d < record && d < perception) {
+                record = d;
+                closest = i;
+            }
+
+        }
+
+        if (closest != -1) {
+            // Steer towards that target
+            return this.seek(targets.get(closest).position);
+        }
+
+        // Target not found, etc.
+        return new Vector(0, 0);
+
+
+
+
+
+    }
+
+
+
     Vector seek(Vector target){
 
         Vector desired = new Vector(target.sub(this.position)[0],target.sub(this.position)[1]);
@@ -47,7 +108,7 @@ public class Boid {
         // Steering = Desired minus velocity
         Vector steer = new Vector(desired.sub(this.velocity)[0],desired.sub(this.velocity)[1]);
         steer.limit(max_force);
-        this.acceleration.add(steer);
+        //this.acceleration.add(steer);
 
         return steer;
     }
@@ -78,14 +139,44 @@ public class Boid {
         return Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
     }
 
+    void wander() {
+        // Создаем вектор с случайным углом направления
+        double angle = Math.random() * 2 * Math.PI;
+        Vector randomForce = new Vector(Math.cos(angle), Math.sin(angle));
+        randomForce.multiply(max_force); // Умножаем на максимальную силу, чтобы получить изменение ускорения
+        this.acceleration.add(randomForce); // Добавляем случайное ускорение к текущему ускорению
+    }
+
     public void draw(Graphics2D g) {
         AffineTransform save = g.getTransform();
         g.translate((int)this.position.xvalue, (int)this.position.yvalue);
             g.rotate(this.velocity.dir() + Math.PI/2);
 
+        // Рисуем радиус восприятия хорошей еды
+        g.setColor(Color.GREEN);
+        g.drawOval(-dna[2], -dna[2], dna[2]*2, dna[2]*2);
+
+        g.drawLine(0, 0, 0, -dna[0]*100); // Линия привлекательности хорошей еды
+
+        //g.drawLine(0, 0, 0, -100); // Линия привлекательности хорошей еды
+
+        // Рисуем радиус восприятия яда
+        g.setColor(Color.RED);
+        g.drawOval(-dna[3], -dna[3], dna[3]*2, dna[3]*2);
+
+        // Рисуем линии привлекательности
+        g.drawLine(0, 0, 0, dna[1]*100); // Линия привлекательности яда
+
         g.setColor(Color.WHITE);
         g.fill(shape);
         g.draw(shape);
+
+
+
+
+
+
+
         g.setTransform(save);
     }
     static double maxSpeed = 2;

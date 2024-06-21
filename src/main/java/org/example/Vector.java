@@ -10,6 +10,13 @@ public class Vector {
         this.yvalue = Math.random()-0.5;
     }
 
+    double dist(Vector second){
+        double distance = Math.sqrt(Math.pow(second.getXValue() - this.getXValue(), 2) + Math.pow(second.getYValue() - this.getYValue(), 2));
+        return distance;
+
+    }
+
+
     public Vector(double xvalue, double yvalue) {
         this.xvalue = xvalue;
         this.yvalue = yvalue;
