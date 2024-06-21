@@ -7,7 +7,7 @@ import java.util.*;
 
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
-    public static final int BOIDCOUNT = 1045 ;
+    public static final int BOIDCOUNT = 1 ;
 
    public static int WIDTH;
     public static int HEIGHT;
@@ -18,7 +18,9 @@ public class BoidRunner extends JPanel  {
         HEIGHT = screenSize.height;
     }
 
-    static ArrayList<Boid> flock = new ArrayList<Boid>();
+    static ArrayList<Boid> flock = new ArrayList<>();
+    static ArrayList<Food> goodFood = new ArrayList<>();
+    static ArrayList<Food> badFood = new ArrayList<>();
 
 
     public BoidRunner() {
@@ -31,6 +33,12 @@ public class BoidRunner extends JPanel  {
         for(int i = 0; i < BOIDCOUNT; i++)
             flock.add(new Boid());
 
+        for(int i = 0; i < BOIDCOUNT; i++)
+            goodFood.add(new Food(false));
+
+        for(int i = 0; i < BOIDCOUNT; i++)
+            badFood.add(new Food(true));
+
     }
 
     @Override
@@ -41,6 +49,13 @@ public class BoidRunner extends JPanel  {
         for(Boid boid: flock) {
             boid.draw(g);
         }
+
+        for(Food f: goodFood) {
+            f.draw(g);
+        }
+        for(Food f: badFood) {
+            f.draw(g);
+        }
     }
 
 
@@ -49,6 +64,7 @@ public class BoidRunner extends JPanel  {
 
             for(int i = 0; i < flock.size(); i++){
                 flock.get(i).edges();
+                flock.get(i).seek(goodFood.get(0).position);
                 flock.get(i).update();
             }
 

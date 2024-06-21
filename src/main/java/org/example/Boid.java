@@ -3,11 +3,15 @@ package org.example;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.ArrayList;
 
 public class Boid {
     Vector position;
     Vector velocity;
     Vector acceleration;
+   int health ;
+    int age;
+    int[] dna = new int[4];
 
     static int size = 3;
     static Path2D shape = new Path2D.Double();
@@ -20,13 +24,37 @@ public class Boid {
 
 
     public Boid() {
-        this.position = new Vector((double)(Math.random()*BoidRunner.WIDTH),(double)(Math.random()*BoidRunner.HEIGHT));
+        this.position = new Vector((Math.random()*BoidRunner.WIDTH),(Math.random()*BoidRunner.HEIGHT));
         double angle = Math.random()*360;
         double radius = Math.random()*2+2; //2-4 скорость
         this.velocity = new Vector((radius * Math.cos(angle)), (radius * Math.sin(angle)));
         this.acceleration = new Vector(0,0);
+        this.health = 2;
+        this.age = (int)(Math.random() * 1000);
+        //this.dna = new ArrayList<>((int)(Math.random() * 4 - 2),(int)(Math.random() * 4 - 2));//от -2 до 2 от 0 до 100
+        dna[0] = (int)(Math.random() * 4 - 2);// goodfood weight от -2 до 2
+        dna[1] = (int)(Math.random() * 4 - 2);// плохая еда яд от -2 до 2
+        dna[2] = (int)(Math.random() * 100);// 0 bis 100 восприятие хорошей еды
+        dna[3] = (int)(Math.random() * 100);// восприятие плохой еды
 
     }
+
+    Vector seek(Vector target){
+
+        Vector desired = new Vector(target.sub(this.position)[0],target.sub(this.position)[1]);
+
+        desired.setMagnitude(maxSpeed);
+        // Steering = Desired minus velocity
+        Vector steer = new Vector(desired.sub(this.velocity)[0],desired.sub(this.velocity)[1]);
+        steer.limit(max_force);
+        this.acceleration.add(steer);
+
+        return steer;
+    }
+//    void applyForce(double force) {
+//        // We could add mass here if we want A = F / M
+//        this.acceleration.add(double force);
+//    }
 
     void update() {
         this.position.add(this.velocity);
@@ -61,4 +89,7 @@ public class Boid {
         g.setTransform(save);
     }
     static double maxSpeed = 2;
+    static double  max_force = 0.5;
+    int food_value = 1;   // health gained from a food
+    int poison_value = -2;   // health lost from a poison
 }

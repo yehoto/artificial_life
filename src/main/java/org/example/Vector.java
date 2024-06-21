@@ -42,6 +42,7 @@ public class Vector {
         this.yvalue *= multiplier;
     }
 
+    // увеличиваем скорость без изменения направления движения
     public Vector setMagnitude(double newMagnitude) {
         double currentMagnitude = Math.sqrt(Math.pow(this.xvalue, 2) + Math.pow(this.yvalue, 2));
         this.xvalue *= (newMagnitude/currentMagnitude);
@@ -57,6 +58,13 @@ public class Vector {
     void subtract(Vector parent) {
         this.xvalue -= parent.getXValue();
         this.yvalue -= parent.getYValue();
+    }
+
+    double[] sub(Vector second) {
+        double[] arr = new double[2];
+        arr[0]=this.getXValue() - second.getXValue();
+        arr[1]=this.getYValue() - second.getYValue();
+        return arr;
     }
 
     void multiply(double multiplier) {
