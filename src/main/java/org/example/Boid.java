@@ -23,21 +23,93 @@ public class Boid {
     }
 
 
-    public Boid() {
-        this.position = new Vector((Math.random()*BoidRunner.WIDTH),(Math.random()*BoidRunner.HEIGHT));
+    public Boid(boolean child, int[] parentDNA, Vector parentPosition) {
+        if(child){
+            this.position=new Vector(parentPosition.getXValue()+2,parentPosition.getYValue()+2);
+        }else {
+            this.position = new Vector((Math.random() * BoidRunner.WIDTH), (Math.random() * BoidRunner.HEIGHT));
+        }
         double angle = Math.random()*360;
         double radius = Math.random()*2+2; //2-4 скорость
         this.velocity = new Vector((radius * Math.cos(angle)), (radius * Math.sin(angle)));
         this.acceleration = new Vector(0,0);
         this.health = 2;
-        this.age = (int)(Math.random() * 1000);
+        this.age = 1000;
         //this.dna = new ArrayList<>((int)(Math.random() * 4 - 2),(int)(Math.random() * 4 - 2));//от -2 до 2 от 0 до 100
-        dna[0] = (int)(Math.random() * 4 - 2);// goodfood weight от -2 до 2
-        dna[1] = (int)(Math.random() * 4 - 2);// плохая еда яд от -2 до 2
-        dna[2] = (int)(Math.random() * 100);// 0 bis 100 восприятие хорошей еды
-        dna[3] = (int)(Math.random() * 100);// восприятие плохой еды
+        if(!child) {
+            do {
+                this.dna[0] = (int) (Math.random() * 5 - 2);// goodfood weight от -2 до 3
+            } while (this.dna[0] == 0);
+            do {
+                this.dna[1] = (int) (Math.random() * 5 - 2);// плохая еда яд от -2 до 3
+            } while (this.dna[1] == 0);
+
+
+            do {
+                this.dna[2] = (int) (Math.random() * 100);
+            } while (this.dna[2] == 0);
+
+            do {
+                this.dna[3] = (int) (Math.random() * 100);
+            } while (this.dna[3] == 0);
+        }
+        else{
+            int value;
+            this.dna[0]=parentDNA[0];
+            this.dna[1]=parentDNA[1];
+            this.dna[2]=parentDNA[2];
+            this.dna[3]=parentDNA[3];
+
+                if (Math.random() < mutation_rate) {
+                    do {
+                         value = (int) (Math.random() * (2*food_attract)-food_attract);
+                        this.dna[0]+=value;
+                    } while (value == 0);
+
+            }
+            if (Math.random() < mutation_rate) {
+                do {
+                    value = (int) (Math.random() * (2*poison_attract)-poison_attract);
+                    this.dna[1]+=value;
+                } while (value == 0);
+
+
+            }
+            if (Math.random() < mutation_rate) {
+                do {
+                    value = (int) (Math.random() * (2*food_percept)-food_percept);
+                    this.dna[2]+=value;
+                } while (value == 0);
+
+
+            }
+            if (Math.random() < mutation_rate) {
+                do {
+                    value = (int) (Math.random() * (2*poison_percept)-poison_percept);
+                    this.dna[3]+=value;
+                } while (value == 0);
+
+
+            }
+
+
+
+        }
+
+//        dna[2] = (int)(Math.random() * 100);// 0 bis 100 восприятие хорошей еды
+//        dna[3] = (int)(Math.random() * 100);// восприятие плохой еды
 
     }
+
+    Boid getChild(){
+
+        return new Boid(true,this.dna,this.position);
+    }
+    boolean dead(){
+        return (this.health<0);
+    }
+
+
 
     void behaviors(ArrayList<Food> good,ArrayList<Food> bad){
         Vector attraction = this.eat(good,food_value,1000);
@@ -121,6 +193,8 @@ public class Boid {
         this.position.add(this.velocity);
         this.velocity.add(this.acceleration);
         this.velocity.limit(maxSpeed);
+        // Reset accelerationelertion to 0 each cycle
+        this.acceleration.multiply(0);
     }
 
     void edges() {
@@ -183,4 +257,12 @@ public class Boid {
     static double  max_force = 0.5;
     int food_value = 1;   // health gained from a food
     int poison_value = -2;   // health lost from a poison
+
+    double mutation_rate = 0.3;
+
+    int food_attract = 1;
+    int poison_attract = 1;
+    int food_percept = 50;
+    int poison_percept = 50;
+
 }

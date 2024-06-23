@@ -8,15 +8,15 @@ import java.util.*;
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
     public static final int BOIDCOUNT = 10 ;
-    public static final int FOODCOUNT = 10 ;
+    public static final int FOODCOUNT = 1000 ;
 
    public static int WIDTH;
     public static int HEIGHT;
 
     static {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        WIDTH = screenSize.width - 200;
-        HEIGHT = screenSize.height;
+        WIDTH = ((int)screenSize.getWidth()) - 200;
+        HEIGHT = (int)screenSize.getHeight();
     }
 
     static ArrayList<Boid> flock = new ArrayList<>();

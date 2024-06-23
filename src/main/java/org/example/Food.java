@@ -21,6 +21,9 @@ public class Food {
         g.setColor(color);
         // Вычитаем радиус из координат, чтобы центрировать круг
         g.fillOval((int)this.position.getXValue() - radius, (int)this.position.getYValue() - radius, radius * 2, radius * 2);
+
+
     }
+
 
 }
