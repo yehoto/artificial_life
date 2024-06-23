@@ -9,13 +9,24 @@ public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
     public static final int BOIDCOUNT = 10 ;
     public static final int FOODCOUNT = 1000 ;
+    public static double maxSpeed = 2;
+    public static double  max_force = 0.5;
+    public static int food_value  = 1;   // health gained from a food
+    public static int poison_value = -2;   // health lost from a poison
+
+    public static double mutation_rate = 0.3;
+
+    public static int food_attract = 1;
+    public static int poison_attract = 1;
+    public static int food_percept = 50;
+    public static int poison_percept = 50;
 
    public static int WIDTH;
     public static int HEIGHT;
 
     static {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        WIDTH = ((int)screenSize.getWidth()) - 200;
+        WIDTH = (((int)screenSize.getWidth()) /100)*85;
         HEIGHT = (int)screenSize.getHeight();
     }
 
@@ -25,14 +36,14 @@ public class BoidRunner extends JPanel  {
 
 
     public BoidRunner() {
-        this.setLayout(null);
+       // this.setLayout(null);
         this.setBackground(new Color(46, 51, 48));
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.setFocusable(true);
+//        this.setPreferredSize(new Dimension(5, HEIGHT));
+//        this.setFocusable(true);
 
 
         for(int i = 0; i < BOIDCOUNT; i++)
-            flock.add(new Boid());
+            flock.add(new Boid(false,null,null));
 
         for(int i = 0; i < FOODCOUNT; i++)
             goodFood.add(new Food(false));

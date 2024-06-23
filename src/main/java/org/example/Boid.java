@@ -60,32 +60,32 @@ public class Boid {
             this.dna[2]=parentDNA[2];
             this.dna[3]=parentDNA[3];
 
-                if (Math.random() < mutation_rate) {
+                if (Math.random() < BoidRunner.mutation_rate) {
                     do {
-                         value = (int) (Math.random() * (2*food_attract)-food_attract);
+                         value = (int) (Math.random() * (2*BoidRunner.food_attract)-BoidRunner.food_attract);
                         this.dna[0]+=value;
                     } while (value == 0);
 
             }
-            if (Math.random() < mutation_rate) {
+            if (Math.random() < BoidRunner.mutation_rate) {
                 do {
-                    value = (int) (Math.random() * (2*poison_attract)-poison_attract);
+                    value = (int) (Math.random() * (2*BoidRunner.poison_attract)-BoidRunner.poison_attract);
                     this.dna[1]+=value;
                 } while (value == 0);
 
 
             }
-            if (Math.random() < mutation_rate) {
+            if (Math.random() < BoidRunner.mutation_rate) {
                 do {
-                    value = (int) (Math.random() * (2*food_percept)-food_percept);
+                    value = (int) (Math.random() * (2*BoidRunner.food_percept)-BoidRunner.food_percept);
                     this.dna[2]+=value;
                 } while (value == 0);
 
 
             }
-            if (Math.random() < mutation_rate) {
+            if (Math.random() < BoidRunner.mutation_rate) {
                 do {
-                    value = (int) (Math.random() * (2*poison_percept)-poison_percept);
+                    value = (int) (Math.random() * (2*BoidRunner.poison_percept)-BoidRunner.poison_percept);
                     this.dna[3]+=value;
                 } while (value == 0);
 
@@ -112,8 +112,8 @@ public class Boid {
 
 
     void behaviors(ArrayList<Food> good,ArrayList<Food> bad){
-        Vector attraction = this.eat(good,food_value,1000);
-        Vector repulsion = this.eat(bad, poison_value, this.dna[3]);
+        Vector attraction = this.eat(good,BoidRunner.food_value,this.dna[2]);
+        Vector repulsion = this.eat(bad, BoidRunner.poison_value, this.dna[3]);
 
         // Scale the steering forces via. DNA
         attraction.multiply(this.dna[0]);
@@ -141,7 +141,7 @@ public class Boid {
         for (int i=0;i<targets.size();i++){
             double d = this.position.dist(targets.get(i).position);
             //момент съедания
-            if(d<maxSpeed){
+            if(d<BoidRunner.maxSpeed){
                 //уничтожение еды
                 targets.remove(i);
                 this.health+=nutrition;
@@ -176,10 +176,10 @@ public class Boid {
 
         Vector desired = new Vector(target.sub(this.position)[0],target.sub(this.position)[1]);
 
-        desired.setMagnitude(maxSpeed);
+        desired.setMagnitude(BoidRunner.maxSpeed);
         // Steering = Desired minus velocity
         Vector steer = new Vector(desired.sub(this.velocity)[0],desired.sub(this.velocity)[1]);
-        steer.limit(max_force);
+        steer.limit(BoidRunner.max_force);
         //this.acceleration.add(steer);
 
         return steer;
@@ -192,9 +192,9 @@ public class Boid {
     void update() {
         this.position.add(this.velocity);
         this.velocity.add(this.acceleration);
-        this.velocity.limit(maxSpeed);
+        this.velocity.limit(BoidRunner.maxSpeed);
         // Reset accelerationelertion to 0 each cycle
-        this.acceleration.multiply(0);
+        // this.acceleration.multiply(0);
     }
 
     void edges() {
@@ -217,7 +217,7 @@ public class Boid {
         // Создаем вектор с случайным углом направления
         double angle = Math.random() * 2 * Math.PI;
         Vector randomForce = new Vector(Math.cos(angle), Math.sin(angle));
-        randomForce.multiply(max_force); // Умножаем на максимальную силу, чтобы получить изменение ускорения
+        randomForce.multiply(BoidRunner.max_force); // Умножаем на максимальную силу, чтобы получить изменение ускорения
         this.acceleration.add(randomForce); // Добавляем случайное ускорение к текущему ускорению
     }
 
@@ -252,17 +252,9 @@ public class Boid {
 
 
         g.setTransform(save);
+        // Рисуем здоровье справа от Boid
+        g.setColor(Color.WHITE);
+        g.drawString(String.valueOf((int)this.health), (int)this.position.xvalue + 20, (int)this.position.yvalue);
     }
-    static double maxSpeed = 2;
-    static double  max_force = 0.5;
-    int food_value = 1;   // health gained from a food
-    int poison_value = -2;   // health lost from a poison
-
-    double mutation_rate = 0.3;
-
-    int food_attract = 1;
-    int poison_attract = 1;
-    int food_percept = 50;
-    int poison_percept = 50;
 
 }
