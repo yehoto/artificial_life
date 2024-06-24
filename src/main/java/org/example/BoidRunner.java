@@ -7,7 +7,7 @@ import java.util.*;
 
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
-    public static final int BOIDCOUNT = 1 ;
+    public static final int BOIDCOUNT = 50               ;
     public static final int FOODCOUNT = 1000 ;
     public static double maxSpeed = 2;
     public static double  max_force = 0.5;

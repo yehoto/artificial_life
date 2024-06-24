@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91164417-1154-4525-9349-80eb5b596c4d" name="Changes" comment="исправлена проблема с потоками">
+    <list default="true" id="91164417-1154-4525-9349-80eb5b596c4d" name="Changes" comment="еда дрожжит">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Boid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Boid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BoidDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BoidDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BoidRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BoidRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Food.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719161049625</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="еда дрожжит">
+      <option name="closed" value="true" />
+      <created>1719205072028</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719205072029</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,6 +189,7 @@
     <MESSAGE value="мутирование днк" />
     <MESSAGE value="масштабируемый интерфейс" />
     <MESSAGE value="исправлена проблема с потоками" />
-    <option name="LAST_COMMIT_MESSAGE" value="исправлена проблема с потоками" />
+    <MESSAGE value="еда дрожжит" />
+    <option name="LAST_COMMIT_MESSAGE" value="еда дрожжит" />
   </component>
 </project>
