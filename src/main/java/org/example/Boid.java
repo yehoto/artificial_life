@@ -119,13 +119,18 @@ public class Boid {
         attraction.multiply(this.dna[0]);
         repulsion.multiply(this.dna[1]);
 
-      //  this.acceleration.add(attraction);
-       // this.acceleration.add(repulsion);
 
-        if ((attraction.getMagnitude()+repulsion.getMagnitude()) != 0) {
+//        if (((attraction.getMagnitude()+repulsion.getMagnitude()) != 0) || ((attraction+repulsion)<0)) {
+//            this.acceleration.add(attraction);
+//            this.acceleration.add(repulsion);
+//        }else{
+//            this.wander(); // Вызываем метод wander, если еда не найдена
+//        }
+
+        if (((attraction.getMagnitude() + repulsion.getMagnitude()) != 0) ) {
             this.acceleration.add(attraction);
             this.acceleration.add(repulsion);
-        }else{
+        } else {
             this.wander(); // Вызываем метод wander, если еда не найдена
         }
 
