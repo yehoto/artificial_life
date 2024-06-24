@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class BoidDriver {
+        static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
         private static final long startTime = System.currentTimeMillis();
 
         public static void main(String[] args) throws InterruptedException, InvocationTargetException {
@@ -29,29 +30,30 @@ public class BoidDriver {
 
                                 // Получаем размер экрана
                                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                                frame.setSize(screenSize);
+                              // frame.setSize(screenSize);
+                               // frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
                                 // Создаем панель для симуляции
                                 JPanel simulationPanel = new JPanel();
-                                simulationPanel.setPreferredSize(new Dimension((int)(screenSize.width * 0.85), screenSize.height));
+                                simulationPanel.setPreferredSize(new Dimension((int)(screenSize.width * 0.80), screenSize.height));
                                 simulationPanel.setLayout(new BorderLayout());
                                 simulationPanel.add(simulation, BorderLayout.CENTER);
 
                                 // Создаем информационную панель
                                 JPanel infoPanel = new JPanel();
                                 infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-                                infoPanel.setPreferredSize(new Dimension((int)(screenSize.width * 0.15), screenSize.height));
+                                //infoPanel.setPreferredSize(new Dimension((int)(screenSize.width * 0.15), screenSize.height));
 
 
                                 // Создаем кнопки
                                 JButton closeButton = new JButton("закрыть");
                                 closeButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Выравниваем по центру
-                                closeButton.setMaximumSize(new Dimension(((int)(screenSize.getWidth() * 0.15)), 50)); // Фиксированная высота
+                                closeButton.setMaximumSize(new Dimension(((int)(screenSize.getWidth() * 0.20)), 50)); // Фиксированная высота
                                 closeButton.addActionListener(e -> System.exit(0)); // Закрываем приложение
 
                                 JButton minimizeButton = new JButton("свернуть");
                                 minimizeButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Выравниваем по центру
-                                minimizeButton.setMaximumSize(new Dimension(((int)(screenSize.getWidth() * 0.15)), 50)); // Фиксированная высота
+                                minimizeButton.setMaximumSize(new Dimension(((int)(screenSize.getWidth() * 0.20)), 50)); // Фиксированная высота
                                 minimizeButton.addActionListener(e -> frame.setState(JFrame.ICONIFIED)); // Сворачиваем окно
 
                                 // Устанавливаем цвет фона и текста для кнопок
@@ -93,7 +95,7 @@ public class BoidDriver {
                                 createSlider(true,1,1.0,10,10,infoPanel, "радиус восприятия еды : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(true,1,1.0,10,10,infoPanel, "радиус восприятия яда : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
 
-                                JLabel Label = new JLabel("                         доп. комманды");
+                                JLabel Label = new JLabel("                                доп. комманды");
                                 Label.setOpaque(true);
                                 Label.setForeground(Color.GREEN);
                                 Label.setBackground(Color.BLACK);
@@ -130,11 +132,12 @@ public class BoidDriver {
 
                   // Добавляем панели на основное окно
                   frame.add(simulationPanel, BorderLayout.WEST);
+
                                 // Создаем JScrollPane, в который помещаем infoPanel
                                 JScrollPane scrollPane = new JScrollPane(infoPanel);
                                 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
                                 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                                scrollPane.setPreferredSize(new Dimension((int)(screenSize.width * 0.15), screenSize.height));
+                                scrollPane.setPreferredSize(new Dimension((int)(screenSize.width * 0.20), screenSize.height));
 
 // Добавляем scrollPane вместо infoPanel в основное окно
                                 frame.add(scrollPane, BorderLayout.EAST);
@@ -142,7 +145,9 @@ public class BoidDriver {
 
                   // Устанавливаем размер и делаем окно видимым
                   frame.pack();
+                                device.setFullScreenWindow(frame);
                   frame.setLocationRelativeTo(null); // Центрируем окно
+
                   frame.setVisible(true);
                         }
                 });

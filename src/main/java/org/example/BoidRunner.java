@@ -7,8 +7,8 @@ import java.util.*;
 
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
-    public static final int BOIDCOUNT = 50               ;
-    public static final int FOODCOUNT = 1000 ;
+    public static final int BOIDCOUNT = 2               ;
+    public static final int FOODCOUNT = 100 ;
     public static double maxSpeed = 2;
     public static double  max_force = 0.5;
     public static int food_value  = 1;   // health gained from a food
@@ -26,7 +26,7 @@ public class BoidRunner extends JPanel  {
 
     static {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        WIDTH = (((int)screenSize.getWidth()) /100)*85;
+        WIDTH = (((int)screenSize.getWidth()) /100)*80;
         HEIGHT = (int)screenSize.getHeight();
     }
 
