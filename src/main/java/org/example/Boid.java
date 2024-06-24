@@ -9,7 +9,7 @@ public class Boid {
     Vector position;
     Vector velocity;
     Vector acceleration;
-   int health ;
+   double health ;
     int age;
     int[] dna = new int[4];
 
@@ -95,9 +95,6 @@ public class Boid {
 
 
         }
-
-//        dna[2] = (int)(Math.random() * 100);// 0 bis 100 восприятие хорошей еды
-//        dna[3] = (int)(Math.random() * 100);// восприятие плохой еды
 
     }
 
@@ -217,6 +214,11 @@ public class Boid {
     double distance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
     }
+//    public void setRoundedValue(double value) {
+//        this.health = Double.parseDouble(String.format("%.6f", value));
+//    }
+
+
 
     void wander() {
         // Создаем вектор с случайным углом направления
@@ -259,7 +261,7 @@ public class Boid {
         g.setTransform(save);
         // Рисуем здоровье справа от Boid
         g.setColor(Color.WHITE);
-        g.drawString(String.valueOf((int)this.health), (int)this.position.xvalue + 20, (int)this.position.yvalue);
+        g.drawString(String.valueOf(this.health), (int)this.position.xvalue + 20, (int)this.position.yvalue);
     }
 
 }

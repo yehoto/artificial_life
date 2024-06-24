@@ -4,6 +4,7 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.Timer;
 
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
@@ -20,6 +21,8 @@ public class BoidRunner extends JPanel  {
     public static int poison_attract = 1;
     public static int food_percept = 50;
     public static int poison_percept = 50;
+
+    public static double health_tick = 0.5;
 
    public static int WIDTH;
     public static int HEIGHT;
@@ -50,6 +53,17 @@ public class BoidRunner extends JPanel  {
 
         for(int i = 0; i < BOIDCOUNT; i++)
             badFood.add(new Food(true));
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                healthTick(); // Вызов статического метода healthTick класса BoidRunner
+            }
+        };
+
+        // Запуск таймера с задержкой 0 миллисекунд и периодом в 1000 миллисекунд (1 секунда)
+        timer.schedule(task, 0, 1000);
 
     }
 
@@ -85,6 +99,26 @@ public class BoidRunner extends JPanel  {
                 Thread.sleep(10);
             } catch( InterruptedException ex ){}
         }
+    }
+
+    public static void healthTick(){
+        for(Boid b: flock) {
+            double value ;
+            value=b.health;
+            value-=health_tick;
+
+            b.health=round(value,1);
+
+        }
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
 }

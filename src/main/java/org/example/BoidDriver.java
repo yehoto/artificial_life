@@ -67,15 +67,15 @@ public class BoidDriver {
                                 infoPanel.add(minimizeButton);
 
                                 // Пример использования функции
-                                createSlider(false,10,10.0,1,10,infoPanel, "потеря здоровья в сек.: -", 0, 10, 1, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
-                                createSlider(true,1,1.0,10,10,infoPanel, "клонирование через сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                 createSlider(true,10,10.0,1,5,infoPanel, "польза еды для здоровья: +", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                 createSlider(false,10,10.0,1,5,infoPanel, "вред яда для здоровья: -", 0, 50, 10, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
-                                createSlider(true,1,1.0,10,10,infoPanel, "воспроизводство еды сек.: ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(true,1,1.0,10,10,infoPanel, "воспроизводство яда сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(true,1,1.0,10,10,infoPanel, "max скорость : ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(true,10,10.0,10,10,infoPanel, "max ускорение : ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(true,100,100.0,1,10,infoPanel, "вероятность мутации гена: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(0,false,10,10.0,1,10,infoPanel, "потеря здоровья в сек.: -", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(1,true,1,1.0,10,10,infoPanel, "клонирование через сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                 createSlider(2,true,10,10.0,1,5,infoPanel, "польза еды для здоровья: +", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                 createSlider(3,false,10,10.0,1,5,infoPanel, "вред яда для здоровья: -", 0, 50, 10, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(4,true,1,1.0,10,10,infoPanel, "воспроизводство еды сек.: ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(5,true,1,1.0,10,10,infoPanel, "воспроизводство яда сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(6,true,1,1.0,10,10,infoPanel, "max скорость : ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(7,true,10,10.0,10,10,infoPanel, "max ускорение : ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(8,true,100,100.0,1,10,infoPanel, "вероятность мутации гена: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
 
                                 JLabel sliderLabel = new JLabel("                      интервалы мутации генов");
                                 sliderLabel.setOpaque(true);
@@ -88,12 +88,12 @@ public class BoidDriver {
 
 
 
-                                createSlider(true,10,10.0,1,5,infoPanel, "сила притяжения еды +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(true,10,10.0,1,5,infoPanel, "сила притяжения яда +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(9,true,10,10.0,1,5,infoPanel, "сила притяжения еды +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(10,true,10,10.0,1,5,infoPanel, "сила притяжения яда +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 // Добавляем слайдер под кнопки в infoPanel
                                 //infoPanel.add(foodSlider);
-                                createSlider(true,1,1.0,10,10,infoPanel, "радиус восприятия еды : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(true,1,1.0,10,10,infoPanel, "радиус восприятия яда : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(11,true,1,1.0,10,10,infoPanel, "радиус восприятия еды : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(12,true,1,1.0,10,10,infoPanel, "радиус восприятия яда : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
 
                                 JLabel Label = new JLabel("                                доп. комманды");
                                 Label.setOpaque(true);
@@ -124,6 +124,9 @@ public class BoidDriver {
                                                 long elapsedMillis = System.currentTimeMillis() - startTime;
                                                 String timeString = formatDuration(elapsedMillis);
                                                 timerLabel.setText("Время: " + timeString);
+//                                                if (!BoidRunner.flock.isEmpty()) {
+//                                                        BoidRunner.healthTick();
+//                                                }
                                         }
                                 });
                                 timer.start();
@@ -187,7 +190,7 @@ public class BoidDriver {
 
         // Функция для создания JSlider
         // Функция для создания JSlider
-        public static JSlider createSlider(boolean positive,int del1,double otobrach,int minny,int del,JPanel panel, String labelPrefix, int min, int max, int initialValue, Color background, Color foreground, Color labelColor) {
+        public static void createSlider(int n,boolean positive,int del1,double otobrach,int minny,int del,JPanel panel, String labelPrefix, int min, int max, int initialValue, Color background, Color foreground, Color labelColor) {
                 JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, initialValue);
                 slider.setMajorTickSpacing(max / del);
                 slider.setMinorTickSpacing(minny);
@@ -196,6 +199,8 @@ public class BoidDriver {
                 slider.setBackground(background);
                 slider.setForeground(foreground);
                 slider.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
                 // Создаем пользовательские метки для слайдера
                 Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
@@ -221,6 +226,14 @@ public class BoidDriver {
                                 JSlider source = (JSlider) e.getSource();
                                 double value = source.getValue() / otobrach;
                                 sliderLabel.setText(labelPrefix + value);
+
+                                switch(n){
+                                        case (0): BoidRunner.health_tick=value;
+                                        break;
+
+
+                                }
+
                         }
                 });
 
@@ -228,7 +241,7 @@ public class BoidDriver {
                 panel.add(sliderLabel);
                 panel.add(slider);
 
-                return slider;
+
         }
 
 }

@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91164417-1154-4525-9349-80eb5b596c4d" name="Changes" comment="добавлены все кнопки">
+    <list default="true" id="91164417-1154-4525-9349-80eb5b596c4d" name="Changes" comment="исправлена прокрутка в infoPannel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Boid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Boid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BoidDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BoidDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BoidRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BoidRunner.java" afterDir="false" />
     </list>
@@ -172,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719224959240</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="исправлена прокрутка в infoPannel">
+      <option name="closed" value="true" />
+      <created>1719236689663</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1719236689663</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -199,6 +208,7 @@
     <MESSAGE value="исправлена проблема с потоками" />
     <MESSAGE value="еда дрожжит" />
     <MESSAGE value="добавлены все кнопки" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавлены все кнопки" />
+    <MESSAGE value="исправлена прокрутка в infoPannel" />
+    <option name="LAST_COMMIT_MESSAGE" value="исправлена прокрутка в infoPannel" />
   </component>
 </project>
