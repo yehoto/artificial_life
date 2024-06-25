@@ -144,24 +144,62 @@ public class Boid {
 
 
 
-    void behaviors(ArrayList<Food> good,ArrayList<Food> bad){
-        //Vector attraction = this.eat(good,BoidRunner.food_value,this.dna[2]);// направление до еды
-         Vector repulsion = this.eat(bad, BoidRunner.poison_value, this.dna[3]);// направление до яда
+//    void behaviors(ArrayList<Food> good,ArrayList<Food> bad){
+//        //Vector attraction = this.eat(good,BoidRunner.food_value,this.dna[2]);// направление до еды
+//         Vector repulsion = this.eat(bad, BoidRunner.poison_value, this.dna[3]);// направление до яда
+//
+//        // Scale the steering forces via. DNA
+//        //attraction.multiply(this.dna[0]);
+//       repulsion.multiply(this.dna[1]);
+//
+////        if (((attraction.getMagnitude() + repulsion.getMagnitude()) != 0) ) {
+//            //this.acceleration.add(attraction);// We could add mass here if we want A = F / M
+//          this.acceleration.add(repulsion);
+////        } else {
+////            this.wander(); // Вызываем метод wander, если еда не найдена
+//       // надо если в радиусе восприятия нет нужного
+////        }
 
-        // Scale the steering forces via. DNA
-        //attraction.multiply(this.dna[0]);
-       repulsion.multiply(this.dna[1]);
 
-//        if (((attraction.getMagnitude() + repulsion.getMagnitude()) != 0) ) {
-            //this.acceleration.add(attraction);// We could add mass here if we want A = F / M
-          this.acceleration.add(repulsion);
-//        } else {
-//            this.wander(); // Вызываем метод wander, если еда не найдена
-       // надо если в радиусе восприятия нет нужного
-//        }
+    //}
+    void behaviors(ArrayList<Food> good, ArrayList<Food> bad) {
+        // Create a thread for attraction force calculation
+        Thread attractionThread = new Thread(() -> {
+            Vector attraction = this.eat(good, BoidRunner.food_value, this.dna[2]);
+            attraction.multiply(this.dna[0]);
+            synchronized (this) {
+                if (attraction.getMagnitude() != 0) {
+                    this.acceleration.add(attraction);
+                }
+            }
+        });
 
+        // Create a thread for repulsion force calculation
+        Thread repulsionThread = new Thread(() -> {
+            Vector repulsion = this.eat(bad, BoidRunner.poison_value, this.dna[3]);
+            repulsion.multiply(this.dna[1]);
+            synchronized (this) {
+                if (repulsion.getMagnitude() != 0) {
+                    this.acceleration.add(repulsion);
+                }
+            }
+        });
 
+        // Start both threads
+        attractionThread.start();
+        repulsionThread.start();
+
+        // Wait for both threads to finish
+        try {
+            attractionThread.join();
+            repulsionThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Continue with other behaviors...
     }
+
 
     Vector eat(ArrayList<Food> targets,double nutrition, double perception){
         double record = Double.MAX_VALUE;

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91164417-1154-4525-9349-80eb5b596c4d" name="Changes" comment="тик">
+    <list default="true" id="91164417-1154-4525-9349-80eb5b596c4d" name="Changes" comment="улучшния">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Boid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Boid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BoidDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BoidDriver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BoidRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BoidRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Food.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719246507331</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="улучшния">
+      <option name="closed" value="true" />
+      <created>1719330349212</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1719330349212</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -219,6 +224,7 @@
     <MESSAGE value="добавлены все кнопки" />
     <MESSAGE value="исправлена прокрутка в infoPannel" />
     <MESSAGE value="тик" />
-    <option name="LAST_COMMIT_MESSAGE" value="тик" />
+    <MESSAGE value="улучшния" />
+    <option name="LAST_COMMIT_MESSAGE" value="улучшния" />
   </component>
 </project>
