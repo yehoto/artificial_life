@@ -5,11 +5,23 @@ import java.awt.*;
 public class Food {
     Vector position;
     Color color;
+
+    boolean eaten=false;
     // Добавляем поля для "дрожания"
     double shakeMagnitude ; // Максимальное смещение
 
     public Food(boolean poison) {
         this.position = new Vector((Math.random()*BoidRunner.WIDTH),(Math.random()*BoidRunner.HEIGHT));
+        this.shakeMagnitude = Math.random() * 2.0; // Значение от 0.0 до 2.0
+        if(poison){
+            this.color=new Color(255, 0, 0);
+        }else {
+            this.color=new Color(0, 255, 0);
+
+        }
+    }
+    public Food(boolean poison, int x, int y) {
+        this.position = new Vector(x,y);
         this.shakeMagnitude = Math.random() * 2.0; // Значение от 0.0 до 2.0
         if(poison){
             this.color=new Color(255, 0, 0);

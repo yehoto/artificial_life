@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
+import java.util.Random;
+import java.util.TimerTask;
 import javax.swing.*;
 
 import javax.swing.*;
@@ -12,7 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class BoidDriver {
-        static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+        static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[1];
         private static final long startTime = System.currentTimeMillis();
 
         public static void main(String[] args) throws InterruptedException, InvocationTargetException {
@@ -67,14 +69,18 @@ public class BoidDriver {
                                 infoPanel.add(minimizeButton);
 
                                 // Пример использования функции
-                                createSlider(0,false,10,10.0,1,10,infoPanel, "потеря здоровья в сек.: -", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
-                                createSlider(1,true,1,1.0,10,10,infoPanel, "клонирование через сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                 createSlider(2,true,10,10.0,1,5,infoPanel, "польза еды для здоровья: +", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                 createSlider(3,false,10,10.0,1,5,infoPanel, "вред яда для здоровья: -", 0, 50, 10, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
-                                createSlider(4,true,1,1.0,10,10,infoPanel, "воспроизводство еды сек.: ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(5,true,1,1.0,10,10,infoPanel, "воспроизводство яда сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(6,true,1,1.0,10,10,infoPanel, "max скорость : ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(7,true,10,10.0,10,10,infoPanel, "max ускорение : ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                               // createSlider(0,false,10,10.0,1,10,infoPanel, "потеря здоровья в сек.: -", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(0,false,100,100.0,1,10,infoPanel, "потеря здоровья в сек: -", 0, 100, 1, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(1,true,10,10.0,1,5,infoPanel, "клонирование через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                //createSlider(1,true,1,1.0,10,10,infoPanel, "клонирование через сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                 createSlider(2,true,10,10.0,1,5,infoPanel, "польза еды для здоровья: +", 0, 50, 10, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                 createSlider(3,false,10,10.0,1,5,infoPanel, "вред яда для здоровья: -", 0, 50, 20, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                //createSlider(4,true,1,1.0,10,10,infoPanel, "воспроизводство еды сек.: ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                               // createSlider(5,true,1,1.0,10,10,infoPanel, "воспроизводство яда сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(4,true,10,10.0,1,5,infoPanel, "доп.еда через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(5,true,10,10.0,1,5,infoPanel, "доп.яд через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(6,true,1,1.0,10,10,infoPanel, "max скорость : ", 0, 10, 2, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(7,true,10,10.0,10,10,infoPanel, "max сила : ", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(8,true,100,100.0,1,10,infoPanel, "вероятность мутации гена: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
 
                                 JLabel sliderLabel = new JLabel("                      интервалы мутации генов");
@@ -230,6 +236,103 @@ public class BoidDriver {
                                 switch(n){
                                         case (0): BoidRunner.health_tick=value;
                                         break;
+                                        case(1): {
+                                                BoidRunner.childInSec = value;
+
+                                                        //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
+                                                        // Отменяем предыдущую задачу, если она уже запущена
+                                                        if (BoidRunner.task1 != null) {
+                                                                BoidRunner.task1.cancel();
+                                                                BoidRunner.timer1.purge();
+                                                        }
+                                                if (value!=0) {
+
+// Создаём новую задачу
+                                                        BoidRunner.task1 = new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+                                                                        int i = 0;
+                                                                        if(! BoidRunner.flock.isEmpty()) {
+                                                                                do {
+                                                                                        Random rand = new Random();
+                                                                                        i = rand.nextInt(BoidRunner.flock.size());
+                                                                                        // Получаем Boid по случайному индексу и добавляем его потомка в список
+                                                                                } while (BoidRunner.flock.get(i).dead());
+                                                                                BoidRunner.flock.add(BoidRunner.flock.get(i).getChild());
+                                                                        }
+                                                                }
+                                                        };
+
+// Планируем задачу с новым интервалом
+                                                        BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int) (BoidRunner.childInSec * 1000));
+                                                }
+                                        }
+                                        break;
+                                        case(2): BoidRunner.food_value=value;
+                                        break;
+                                        case(3): BoidRunner.poison_value=value;
+                                        break;
+                                        case(4): {
+
+                                                        BoidRunner.foodInSec = value;
+
+                                                        //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
+                                                        // Отменяем предыдущую задачу, если она уже запущена
+                                                        if (BoidRunner.task2 != null) {
+                                                                BoidRunner.task2.cancel();
+                                                                BoidRunner.timer2.purge();
+                                                        }
+                                                        if (value!=0) {
+
+// Создаём новую задачу
+                                                                BoidRunner.task2 = new TimerTask() {
+                                                                        @Override
+                                                                        public void run() {
+
+
+                                                                                        BoidRunner.goodFood.add(new Food(false));
+
+                                                                        }
+                                                                };
+
+// Планируем задачу с новым интервалом
+                                                                BoidRunner.timer2.schedule(BoidRunner.task2, 0, (int) (BoidRunner.foodInSec * 1000));
+                                                        }
+                                        }
+                                        break;
+                                        case(5):{
+                                                BoidRunner.poisonInSec = value;
+
+                                                //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
+                                                // Отменяем предыдущую задачу, если она уже запущена
+                                                if (BoidRunner.task3 != null) {
+                                                        BoidRunner.task3.cancel();
+                                                        BoidRunner.timer3.purge();
+                                                }
+                                                if (value!=0) {
+
+// Создаём новую задачу
+                                                        BoidRunner.task3 = new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+
+
+                                                                        BoidRunner.badFood.add(new Food(true));
+
+                                                                }
+                                                        };
+
+// Планируем задачу с новым интервалом
+                                                        BoidRunner.timer3.schedule(BoidRunner.task3, 0, (int) (BoidRunner.poisonInSec * 1000));
+                                                }
+
+                                        }
+                                        break;
+                                        case(6):BoidRunner.maxSpeed=value;
+                                                break;
+                                        case(7):BoidRunner.max_force=value;
+                                                break;
+
 
 
                                 }
