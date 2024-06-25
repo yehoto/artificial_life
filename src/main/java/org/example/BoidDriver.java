@@ -81,7 +81,7 @@ public class BoidDriver {
                                 createSlider(5,true,10,10.0,1,5,infoPanel, "доп.яд через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 createSlider(6,true,1,1.0,10,10,infoPanel, "max скорость : ", 0, 10, 2, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(7,true,10,10.0,10,10,infoPanel, "max сила : ", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(8,true,100,100.0,1,10,infoPanel, "вероятность мутации гена: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(8,true,100,100.0,1,10,infoPanel, "вероятность мутации гена: ", 0, 100, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
 
                                 JLabel sliderLabel = new JLabel("                      интервалы мутации генов");
                                 sliderLabel.setOpaque(true);
@@ -98,8 +98,8 @@ public class BoidDriver {
                                 createSlider(10,true,10,10.0,1,5,infoPanel, "сила притяжения яда +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 // Добавляем слайдер под кнопки в infoPanel
                                 //infoPanel.add(foodSlider);
-                                createSlider(11,true,1,1.0,10,10,infoPanel, "радиус восприятия еды : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                createSlider(12,true,1,1.0,10,10,infoPanel, "радиус восприятия яда : ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(11,true,1,1.0,10,10,infoPanel, "радиус восприятия еды +/-: ", 0, 100, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(12,true,1,1.0,10,10,infoPanel, "радиус восприятия яда +/-: ", 0, 100, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
 
                                 JLabel Label = new JLabel("                                доп. комманды");
                                 Label.setOpaque(true);
@@ -331,6 +331,16 @@ public class BoidDriver {
                                         case(6):BoidRunner.maxSpeed=value;
                                                 break;
                                         case(7):BoidRunner.max_force=value;
+                                                break;
+                                        case(8):BoidRunner.mutation_rate=value;
+                                        break;
+                                        case(9):BoidRunner.food_attract =value;
+                                                break;
+                                        case(10):BoidRunner.poison_attract=value;
+                                                break;
+                                        case(11):BoidRunner.food_percept=value;
+                                                break;
+                                        case(12):BoidRunner.poison_percept=value;
                                                 break;
 
 

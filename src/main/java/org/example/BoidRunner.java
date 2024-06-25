@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.Timer;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BoidRunner extends JPanel  {
     private static final long serialVersionUID = -8716187417647724411L;
@@ -20,18 +22,19 @@ public class BoidRunner extends JPanel  {
     public static double food_value  = 1;   // health gained from a food
     public static double poison_value = -2;   // health lost from a poison
 
-    public static double mutation_rate = 1;
+    public static double mutation_rate = 0.3;
 
-    public static double food_attract = 1;
-    public static double poison_attract = 1;
-    public static double food_percept = 50;
-    public static double poison_percept = 50;
+    public static double food_attract = 3;
+    public static double poison_attract = 3;
+    public static double food_percept = 30;
+    public static double poison_percept = 30;
 
     public static double health_tick = 0.01;
 
     public static double childInSec  = 5;
     public static double foodInSec  = 5;
     public static double poisonInSec  = 5;
+    //private final Lock lock = new ReentrantLock();
     public  static Timer timer1 = new Timer();
 
     public  static TimerTask task1 = new TimerTask() {

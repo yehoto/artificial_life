@@ -65,37 +65,61 @@ public class Boid {
             this.dna[2]=parentDNA[2];
             this.dna[3]=parentDNA[3];
 
-//                if (Math.random() < BoidRunner.mutation_rate) {
-//                    do {
-//                         value = (int) (Math.random() * (2*BoidRunner.food_attract)-BoidRunner.food_attract);
-//                        this.dna[0]+=value;
-//                    } while (value == 0);
-//
-//            }
-//            if (Math.random() < BoidRunner.mutation_rate) {
-//                do {
-//                    value = (int) (Math.random() * (2*BoidRunner.poison_attract)-BoidRunner.poison_attract);
-//                    this.dna[1]+=value;
-//                } while (value == 0);
-//
-//
-//            }
-//            if (Math.random() < BoidRunner.mutation_rate) {
-//                do {
-//                    value = (int) (Math.random() * (2*BoidRunner.food_percept)-BoidRunner.food_percept);
-//                    this.dna[2]+=value;
-//                } while (value == 0);
-//
-//
-//            }
-//            if (Math.random() < BoidRunner.mutation_rate) {
-//                do {
-//                    value = (int) (Math.random() * (2*BoidRunner.poison_percept)-BoidRunner.poison_percept);
-//                    this.dna[3]+=value;
-//                } while (value == 0);
-//
-//
-//            }
+                if (Math.random() <= BoidRunner.mutation_rate) {
+                    do {
+                         value = (int) (Math.random() * (2*BoidRunner.food_attract)-BoidRunner.food_attract);
+                        this.dna[0]+=value;
+                        if( this.dna[0]>5){
+                            this.dna[0]=5;
+                        }
+                        else if (this.dna[0]<-5){
+                            this.dna[0]=-5;
+                        }
+                    } while (value == 0);
+
+            }
+            if (Math.random() < BoidRunner.mutation_rate) {
+                do {
+                    value = (int) (Math.random() * (2*BoidRunner.poison_attract)-BoidRunner.poison_attract);
+                    this.dna[1]+=value;
+                    if( this.dna[1]>5){
+                        this.dna[1]=5;
+                    }
+                    else if (this.dna[1]<-5){
+                        this.dna[1]=-5;
+                    }
+                } while (value == 0);
+
+
+            }
+            if (Math.random() < BoidRunner.mutation_rate) {
+                do {
+                    value = (int) (Math.random() * (2*BoidRunner.food_percept)-BoidRunner.food_percept);
+                    this.dna[2]+=value;
+                    if( this.dna[2]>200){
+                        this.dna[2]=200;
+                    }
+                    else if (this.dna[2]<-200){
+                        this.dna[2]=-200;
+                    }
+                } while (value == 0);
+
+
+            }
+            if (Math.random() < BoidRunner.mutation_rate) {
+                do {
+                    value = (int) (Math.random() * (2*BoidRunner.poison_percept)-BoidRunner.poison_percept);
+                    this.dna[3]+=value;
+                    if( this.dna[3]>200){
+                        this.dna[3]=200;
+                    }
+                    else if (this.dna[2]<-200){
+                        this.dna[3]=-200;
+                    }
+                } while (value == 0);
+
+
+            }
 
 
 
@@ -275,13 +299,13 @@ public class Boid {
             this.position.yvalue = BoidRunner.HEIGHT;
     }
 
-    void wander() {
-        // Создаем вектор с случайным углом направления
-        double angle = Math.random() * 2 * Math.PI;
-        Vector randomForce = new Vector(Math.cos(angle), Math.sin(angle));
-        randomForce.multiply(BoidRunner.max_force); // Умножаем на максимальную силу, чтобы получить изменение ускорения
-        this.acceleration.add(randomForce); // Добавляем случайное ускорение к текущему ускорению
-    }
+//    void wander() {
+//        // Создаем вектор с случайным углом направления
+//        double angle = Math.random() * 2 * Math.PI;
+//        Vector randomForce = new Vector(Math.cos(angle), Math.sin(angle));
+//        randomForce.multiply(BoidRunner.max_force); // Умножаем на максимальную силу, чтобы получить изменение ускорения
+//        this.acceleration.add(randomForce); // Добавляем случайное ускорение к текущему ускорению
+//    }
 
     public void draw(Graphics2D g) {
         AffineTransform save = g.getTransform();
@@ -291,8 +315,10 @@ public class Boid {
         // Рисуем радиус восприятия хорошей еды
         g.setColor(Color.GREEN);
         g.drawOval(-dna[2], -dna[2], dna[2]*2, dna[2]*2);
+       // g.drawOval(-200, -200, 200*2, 200*2);
 
         g.drawLine(-1, -1, -1, -dna[0]*100); // Линия привлекательности хорошей еды
+       // g.drawLine(-1, -1, -1, -500); // Линия привлекательности хорошей еды
 
         //g.drawLine(0, 0, 0, -100); // Линия привлекательности хорошей еды
 
