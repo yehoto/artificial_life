@@ -1,5 +1,6 @@
 package org.example;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,20 +10,26 @@ import java.util.Random;
 import java.util.TimerTask;
 import javax.swing.*;
 
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+
 public class BoidDriver {
-        static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[1];
+        static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
         private static final long startTime = System.currentTimeMillis();
+
 
         public static void main(String[] args) throws InterruptedException, InvocationTargetException {
                 BoidRunner simulation = new BoidRunner();
                 SwingUtilities.invokeAndWait(new Runnable() {
                         public void run() {
 
-                // Создаем и запускаем симуляцию
+
+                                // Создаем и запускаем симуляцию
+
+
 
 
                                 // Создаем основное окно
@@ -30,10 +37,12 @@ public class BoidDriver {
                                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                                 frame.setUndecorated(true); // Убираем декоративные элементы окна
 
+
                                 // Получаем размер экрана
                                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                              // frame.setSize(screenSize);
-                               // frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+                                // frame.setSize(screenSize);
+                                // frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+
 
                                 // Создаем панель для симуляции
                                 JPanel simulationPanel = new JPanel();
@@ -41,10 +50,13 @@ public class BoidDriver {
                                 simulationPanel.setLayout(new BorderLayout());
                                 simulationPanel.add(simulation, BorderLayout.CENTER);
 
+
                                 // Создаем информационную панель
                                 JPanel infoPanel = new JPanel();
                                 infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
                                 //infoPanel.setPreferredSize(new Dimension((int)(screenSize.width * 0.15), screenSize.height));
+
+
 
 
                                 // Создаем кнопки
@@ -53,10 +65,12 @@ public class BoidDriver {
                                 closeButton.setMaximumSize(new Dimension(((int)(screenSize.getWidth() * 0.20)), 50)); // Фиксированная высота
                                 closeButton.addActionListener(e -> System.exit(0)); // Закрываем приложение
 
+
                                 JButton minimizeButton = new JButton("свернуть");
                                 minimizeButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Выравниваем по центру
                                 minimizeButton.setMaximumSize(new Dimension(((int)(screenSize.getWidth() * 0.20)), 50)); // Фиксированная высота
                                 minimizeButton.addActionListener(e -> frame.setState(JFrame.ICONIFIED)); // Сворачиваем окно
+
 
                                 // Устанавливаем цвет фона и текста для кнопок
                                 closeButton.setBackground(new Color(64, 64, 64)); // Темно-серый цвет фона
@@ -64,24 +78,27 @@ public class BoidDriver {
                                 minimizeButton.setBackground(new Color(64, 64, 64)); // Темно-серый цвет фона
                                 minimizeButton.setForeground(Color.WHITE); // Белый цвет текста
 
+
                                 // Добавляем кнопки на информационную панель
                                 infoPanel.add(closeButton);
                                 infoPanel.add(minimizeButton);
 
+
                                 // Пример использования функции
-                               // createSlider(0,false,10,10.0,1,10,infoPanel, "потеря здоровья в сек.: -", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                // createSlider(0,false,10,10.0,1,10,infoPanel, "потеря здоровья в сек.: -", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 createSlider(0,false,100,100.0,1,10,infoPanel, "потеря здоровья в сек: -", 0, 100, 1, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 createSlider(1,true,10,10.0,1,5,infoPanel, "клонирование через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 //createSlider(1,true,1,1.0,10,10,infoPanel, "клонирование через сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                 createSlider(2,true,10,10.0,1,5,infoPanel, "польза еды для здоровья: +", 0, 50, 10, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                                 createSlider(3,false,10,10.0,1,5,infoPanel, "вред яда для здоровья: -", 0, 50, 20, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+                                createSlider(2,true,10,10.0,1,5,infoPanel, "польза еды для здоровья: +", 0, 50, 10, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                createSlider(3,false,10,10.0,1,5,infoPanel, "вред яда для здоровья: -", 0, 50, 20, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 //createSlider(4,true,1,1.0,10,10,infoPanel, "воспроизводство еды сек.: ", 0, 100, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
-                               // createSlider(5,true,1,1.0,10,10,infoPanel, "воспроизводство яда сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+                                // createSlider(5,true,1,1.0,10,10,infoPanel, "воспроизводство яда сек.: ", 0, 10, 3, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(4,true,10,10.0,1,5,infoPanel, "доп.еда через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(5,true,10,10.0,1,5,infoPanel, "доп.яд через сек.: ", 0, 100, 50, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 createSlider(6,true,1,1.0,10,10,infoPanel, "max скорость : ", 0, 10, 2, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(7,true,10,10.0,10,10,infoPanel, "max сила : ", 0, 10, 5, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(8,true,100,100.0,1,10,infoPanel, "вероятность мутации гена: ", 0, 100, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
+
 
                                 JLabel sliderLabel = new JLabel("                      интервалы мутации генов");
                                 sliderLabel.setOpaque(true);
@@ -94,12 +111,16 @@ public class BoidDriver {
 
 
 
+
+
+
                                 createSlider(9,true,10,10.0,1,5,infoPanel, "сила притяжения еды +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(10,true,10,10.0,1,5,infoPanel, "сила притяжения яда +/- : ", 0, 50, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
                                 // Добавляем слайдер под кнопки в infoPanel
                                 //infoPanel.add(foodSlider);
                                 createSlider(11,true,1,1.0,10,10,infoPanel, "радиус восприятия еды +/-: ", 0, 100, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(32, 120, 56));
                                 createSlider(12,true,1,1.0,10,10,infoPanel, "радиус восприятия яда +/-: ", 0, 100, 30, new Color(255, 255, 255), new Color(0, 0, 0), new Color(117, 8, 30));
+
 
                                 JLabel Label = new JLabel("                                доп. комманды");
                                 Label.setOpaque(true);
@@ -109,6 +130,7 @@ public class BoidDriver {
                                 Label.setMaximumSize(new Dimension(Integer.MAX_VALUE, sliderLabel.getPreferredSize().height));
                                 infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
                                 infoPanel.add(Label);
+
 
                                 JLabel Label1 = new JLabel("<html>добавить еду: лкм<br>добавить яд: пкм<br>добавить новый организм: скм<br>удалить всю еду: Ctrl+F<br>удалить весь яд: Ctrl+P<br>удалит все организмы: Ctrl+O</html>");
                                 Label1.setOpaque(true);
@@ -122,6 +144,7 @@ public class BoidDriver {
                                 JLabel timerLabel = new JLabel("Время: 00:00:00");
                                 timerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                                 infoPanel.add(timerLabel);
+
 
                                 // Создаем таймер, который обновляет метку каждую секунду
                                 Timer timer = new Timer(1000, new ActionListener() {
@@ -139,8 +162,12 @@ public class BoidDriver {
 
 
 
-                  // Добавляем панели на основное окно
-                  frame.add(simulationPanel, BorderLayout.WEST);
+
+
+
+                                // Добавляем панели на основное окно
+                                frame.add(simulationPanel, BorderLayout.WEST);
+
 
                                 // Создаем JScrollPane, в который помещаем infoPanel
                                 JScrollPane scrollPane = new JScrollPane(infoPanel);
@@ -148,16 +175,19 @@ public class BoidDriver {
                                 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                                 scrollPane.setPreferredSize(new Dimension((int)(screenSize.width * 0.20), screenSize.height));
 
+
 // Добавляем scrollPane вместо infoPanel в основное окно
                                 frame.add(scrollPane, BorderLayout.EAST);
-                //  frame.add(infoPanel, BorderLayout.EAST);
+                                //  frame.add(infoPanel, BorderLayout.EAST);
 
-                  // Устанавливаем размер и делаем окно видимым
-                  frame.pack();
+
+                                // Устанавливаем размер и делаем окно видимым
+                                frame.pack();
                                 device.setFullScreenWindow(frame);
-                  frame.setLocationRelativeTo(null); // Центрируем окно
+                                frame.setLocationRelativeTo(null); // Центрируем окно
 
-                  frame.setVisible(true);
+
+                                frame.setVisible(true);
                         }
                 });
                 SwingUtilities.invokeAndWait(new Runnable() {
@@ -171,6 +201,7 @@ public class BoidDriver {
                                                 return null;
                                         }
 
+
                                         @Override
                                         protected void done() {
                                                 // Этот метод выполняется в EDT после завершения doInBackground
@@ -179,8 +210,12 @@ public class BoidDriver {
                                 };
                                 worker.execute(); // Запускаем SwingWorker
                                 // simulation.run();
-        }
-});
+                        }
+                });
+
+
+
+
 
 
 
@@ -193,6 +228,7 @@ public class BoidDriver {
                 long secs = seconds % 60;
                 return String.format("%02d:%02d:%02d", hours, minutes, secs);
         }
+
 
         // Функция для создания JSlider
         // Функция для создания JSlider
@@ -208,10 +244,13 @@ public class BoidDriver {
 
 
 
+
+
+
                 // Создаем пользовательские метки для слайдера
                 Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
                 for (int i = min; i <= max; i += max / del) {
-               // for (int i = min; i <= max; i += 10) {
+                        // for (int i = min; i <= max; i += 10) {
                         if(positive) {
                                 labelTable.put(i, new JLabel(String.valueOf((float) i / del1)));
                         }else{
@@ -220,10 +259,12 @@ public class BoidDriver {
                 }
                 slider.setLabelTable(labelTable);
 
+
                 // Создаем подпись для слайдера
                 JLabel sliderLabel = new JLabel(labelPrefix + initialValue / otobrach);
                 sliderLabel.setForeground(labelColor);
                 sliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
                 // Добавляем слушателя для отслеживания изменений значения слайдера
                 slider.addChangeListener(new ChangeListener() {
@@ -233,19 +274,22 @@ public class BoidDriver {
                                 double value = source.getValue() / otobrach;
                                 sliderLabel.setText(labelPrefix + value);
 
+
                                 switch(n){
                                         case (0): BoidRunner.health_tick=value;
-                                        break;
+                                                break;
                                         case(1): {
                                                 BoidRunner.childInSec = value;
 
-                                                        //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
-                                                        // Отменяем предыдущую задачу, если она уже запущена
-                                                        if (BoidRunner.task1 != null) {
-                                                                BoidRunner.task1.cancel();
-                                                                BoidRunner.timer1.purge();
-                                                        }
+
+                                                //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
+                                                // Отменяем предыдущую задачу, если она уже запущена
+                                                if (BoidRunner.task1 != null) {
+                                                        BoidRunner.task1.cancel();
+                                                        BoidRunner.timer1.purge();
+                                                }
                                                 if (value!=0) {
+
 
 // Создаём новую задачу
                                                         BoidRunner.task1 = new TimerTask() {
@@ -263,45 +307,54 @@ public class BoidDriver {
                                                                 }
                                                         };
 
+
 // Планируем задачу с новым интервалом
                                                         BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int) (BoidRunner.childInSec * 1000));
                                                 }
                                         }
                                         break;
                                         case(2): BoidRunner.food_value=value;
-                                        break;
+                                                break;
                                         case(3): BoidRunner.poison_value=value;
-                                        break;
+                                                break;
                                         case(4): {
 
-                                                        BoidRunner.foodInSec = value;
 
-                                                        //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
-                                                        // Отменяем предыдущую задачу, если она уже запущена
-                                                        if (BoidRunner.task2 != null) {
-                                                                BoidRunner.task2.cancel();
-                                                                BoidRunner.timer2.purge();
-                                                        }
-                                                        if (value!=0) {
+                                                BoidRunner.foodInSec = value;
+
+
+                                                //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
+                                                // Отменяем предыдущую задачу, если она уже запущена
+                                                if (BoidRunner.task2 != null) {
+                                                        BoidRunner.task2.cancel();
+                                                        BoidRunner.timer2.purge();
+                                                }
+                                                if (value!=0) {
+
 
 // Создаём новую задачу
-                                                                BoidRunner.task2 = new TimerTask() {
-                                                                        @Override
-                                                                        public void run() {
+                                                        BoidRunner.task2 = new TimerTask() {
+                                                                @Override
+                                                                public void run() {
 
 
-                                                                                        BoidRunner.goodFood.add(new Food(false));
 
-                                                                        }
-                                                                };
+
+                                                                        BoidRunner.goodFood.add(new Food(false));
+
+
+                                                                }
+                                                        };
+
 
 // Планируем задачу с новым интервалом
-                                                                BoidRunner.timer2.schedule(BoidRunner.task2, 0, (int) (BoidRunner.foodInSec * 1000));
-                                                        }
+                                                        BoidRunner.timer2.schedule(BoidRunner.task2, 0, (int) (BoidRunner.foodInSec * 1000));
+                                                }
                                         }
                                         break;
                                         case(5):{
                                                 BoidRunner.poisonInSec = value;
+
 
                                                 //BoidRunner.timer1.schedule(BoidRunner.task1, 0, (int)(BoidRunner.childInSec*1000));
                                                 // Отменяем предыдущую задачу, если она уже запущена
@@ -311,20 +364,26 @@ public class BoidDriver {
                                                 }
                                                 if (value!=0) {
 
+
 // Создаём новую задачу
                                                         BoidRunner.task3 = new TimerTask() {
                                                                 @Override
                                                                 public void run() {
 
 
+
+
                                                                         BoidRunner.badFood.add(new Food(true));
+
 
                                                                 }
                                                         };
 
+
 // Планируем задачу с новым интервалом
                                                         BoidRunner.timer3.schedule(BoidRunner.task3, 0, (int) (BoidRunner.poisonInSec * 1000));
                                                 }
+
 
                                         }
                                         break;
@@ -333,7 +392,7 @@ public class BoidDriver {
                                         case(7):BoidRunner.max_force=value;
                                                 break;
                                         case(8):BoidRunner.mutation_rate=value;
-                                        break;
+                                                break;
                                         case(9):BoidRunner.food_attract =value;
                                                 break;
                                         case(10):BoidRunner.poison_attract=value;
@@ -345,19 +404,24 @@ public class BoidDriver {
 
 
 
+
+
+
                                 }
+
 
                         }
                 });
+
 
                 // Добавляем подпись и слайдер на панель
                 panel.add(sliderLabel);
                 panel.add(slider);
 
 
+
+
         }
 
+
 }
-
-
-
